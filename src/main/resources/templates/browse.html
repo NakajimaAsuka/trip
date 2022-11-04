@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+	<script th:src="@{/js/browse.js}"></script>
+	<script type="module" src="/js/bootstrap.min.js"></script>
+	<meta charset="UTF-8" />
+	<title>閲覧画面</title>
+</head>
+
+<body>
+<form method="post" action="">
+    <div class="container">
+        <h1>閲覧画面</h1>
+        <h3 class="interval_h">宿泊先</h3>
+		<div class="mb-3">
+			  <label for="exampleFormControlInput1" class="form-label interval_div" th:text="${responseView.prefectures}"></label>
+		</div>
+        <h3 class="interval_h">期間</h3>
+        	<label for="exampleFormControlInput1" class="form-label interval_div" th:text="${#calendars.format(responseView.tripStartDate,'yyyy-MM-dd')}"></label>
+		      <span class="input-group-addon">から</span>
+		      <label for="exampleFormControlInput1" class="form-label interval_div" th:text="${#calendars.format(responseView.tripStartDate,'yyyy-MM-dd')}"></label>
+		<div class="mb-3">
+			  <label for="exampleFormControlInput1" class="form-label interval_div">宿泊先名</label>
+			  <p type="text" class="fs-6" id="accommodationName" th:text="${responseView.accommodationName}"></p>
+		</div>
+		<div class="mb-3">
+  			<label for="exampleFormControlTextarea1" class="form-label">コメント</label>
+  			<p type="text" class="fs-6" id="accommodatiotInfo" th:text="${responseView.accommodationInfo}"></p>
+		</div>
+        <h3 class="interval_h">朝食</h3>
+		<div class="mb-3">
+			  <label for="exampleFormControlInput1" class="form-label interval_div">店名</label>
+ 			 <p type="text" class="fs-6" id="breakfastShopName" th:text="${responseView.breakfastShopName}"></p>
+		</div>
+		<div class="mb-3">
+  			<label for="exampleFormControlTextarea1" class="form-label">朝食情報</label>
+ 			<p type="text" class="fs-6" id="breakfastInfo" th:text="${responseView.breakfastInfo}"></p>
+		</div>
+        <h3 class="interval_h">昼食</h3>
+		<div class="mb-3">
+			  <label for="exampleFormControlInput1" class="form-label interval_div">店名</label>
+ 			 <p type="text" class="fs-6" id="lunchShopName" th:text="${responseView.lunchShopName}"></p>
+		</div>
+		<div class="mb-3">
+  			<label for="exampleFormControlTextarea1" class="form-label">昼食情報</label>
+ 			<p type="text" class="fs-6" id="lunchInfo" th:text="${responseView.lunchInfo}"></p>
+		</div>
+        <h3 class="interval_h">夜食</h3>
+		<div class="mb-3">
+			  <label for="exampleFormControlInput1" class="form-label interval_div">店名</label>
+ 			 <p type="text" class="fs-6" id="dinnerShopName" th:text="${responseView.dinnerShopName}"></p>
+		</div>
+		<div class="mb-3">
+  			<label for="exampleFormControlTextarea1" class="form-label">夜食情報</label>
+ 			 <p type="text" class="fs-6" id="dinnerInfo" th:text="${responseView.dinnerInfo}"></p>
+		</div>
+		<p></p>
+		<button type="button" class="btn btn-outline-info" id="returnButton">戻る</button>
+		<button type="button" class="btn btn-outline-success" id="nextButton" >編集</button>
+		<button type="button" class="btn btn-outline-danger" id="deleteButton" th:data-trip-id="${responseView.tripId}">削除</button>
+    </div>
+</form>
+<div class="modal" tabindex="-1" id="confirm">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">削除確認</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+      </div><!-- /.modal-header -->
+      <div class="modal-body">
+        <p>削除しますか？</p>
+      </div><!-- /.modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+        <button type="button" class="btn btn-primary" id="confirmNext">OK</button>
+      </div><!-- /.modal-footer -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal" tabindex="-1" id="completion">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">削除完了</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+      </div><!-- /.modal-header -->
+      <div class="modal-body">
+        <p>削除完了しました。</p>
+      </div><!-- /.modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="completionNext">OK</button>
+      </div><!-- /.modal-footer -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</body>
+</html>

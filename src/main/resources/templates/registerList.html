@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+	<script  th:src="@{/js/registerList.js}"></script>
+	<script type="module" src="/js/bootstrap.min.js"></script>
+	<meta charset="UTF-8" />
+	<title>一覧画面</title>
+</head>
+
+<body>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">開始日</th>
+      <th scope="col">終了日</th>
+      <th scope="col">ボタン</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="tripInfo,status : ${tripInfoList}">
+      <th scope="row" th:text="${status.count}"></th>
+      <td th:text="${#calendars.format(tripInfo.tripStartDate,'yyyy-MM-dd')}"></td>
+      <td th:text="${#calendars.format(tripInfo.tripEndDate,'yyyy-MM-dd')}"></td>
+      <td>
+      	<a class="btn btn-outline-primary" th:href="@{http://localhost:8080/trip/browseView(tripId=${tripInfo.tripId})}">閲覧画面</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button type="button" class="btn btn-outline-info" id="returnButton">戻る</button>
+</body>
+</html>

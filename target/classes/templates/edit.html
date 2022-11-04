@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker3.css}">
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script type="module" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap-datepicker.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+	<script  th:src="@{/js/edit.js}"></script>
+	<script type="module" src="/js/bootstrap.min.js"></script>
+	<meta charset="UTF-8" />
+	<title>編集画面</title>
+</head>
+
+<body>
+<form method="post" action="">
+    <div class="container">
+        <h1>編集画面</h1>
+        <select class="form-select" id="prefectures">
+            <option
+                th:each="prefectures : ${prefecturesList}"
+                th:value="${prefectures.prefecturesId}"
+                th:text="${prefectures.prefectures}"
+                th:selected="${prefectures.prefecturesId == responseView.prefecturesId}">
+            </option>
+        </select>
+        <h3 class="interval_h">期間</h3>
+		<div class="form-group" id="datepicker-daterange">
+		  <div class="col-sm-9 form-inline">
+		    <div class="input-daterange input-group" id="datepicker">
+		      <input type="text" class="input-sm form-control" name="start" id="tripStartDate" th:text"${#calendars.format(responseView.tripStartDate,'yyyy年mm月dd日')}"/>
+		      <span class="input-group-addon">から</span>
+		      <input type="text" class="input-sm form-control" name="end" id="tripEndDate" th:text"${#calendars.format(responseView.tripEndDate,'yyyy年mm月dd日')}"/>
+		    </div>
+		  </div>
+		</div>	
+        <h3 class="interval_h">宿泊先</h3>
+		<div class="mb-3">
+			  <label for="exampleFormControlInput1" class="form-label interval_div">宿泊先名</label>
+ 			 <input type="text" class="form-control" id="accommodationName" th:text="${responseView.accommodationName}">
+		</div>
+		<div class="mb-3">
+  			<label for="exampleFormControlTextarea1" class="form-label">コメント</label>
+ 			 <textarea class="form-control" id="accommodationInfo" rows="3"></textarea>
+		</div>
+		<button type="button" class="btn btn-primary">画像アップデート</button>
+        <h3 class="interval_h">朝食</h3>
+		<div class="mb-3">
+			  <label for="exampleFormControlInput1" class="form-label interval_div">店名</label>
+ 			 <input type="text" class="form-control" id="breakfastShopName" th:text="${responseView.breakfastShopName}">
+		</div>
+		<div class="mb-3">
+  			<label for="exampleFormControlTextarea1" class="form-label">朝食情報</label>
+ 			 <textarea class="form-control" id="breakfastInfo" rows="3" th:text="${responseView.breakfastInfo}"></textarea>
+		</div>
+		<button type="button" class="btn btn-primary">画像アップデート</button>
+        <h3 class="interval_h">昼食</h3>
+		<div class="mb-3">
+			  <label for="exampleFormControlInput1" class="form-label interval_div">店名</label>
+ 			 <input type="text" class="form-control" id="lunchShopName" th:text="${responseView.lunchShopName}">
+		</div>
+		<div class="mb-3">
+  			<label for="exampleFormControlTextarea1" class="form-label">昼食情報</label>
+ 			 <textarea class="form-control" id="lunchInfo" rows="3" th:text="${responseView.lunchInfo}"></textarea>
+		</div>
+		<button type="button" class="btn btn-primary">画像アップデート</button>
+        <h3 class="interval_h">夜食</h3>
+		<div class="mb-3">
+			  <label for="exampleFormControlInput1" class="form-label interval_div">店名</label>
+ 			 <input type="text" class="form-control" id="dinnerShopName" th:text="${responseView.dinnerShopName}">
+		</div>
+		<div class="mb-3">
+  			<label for="exampleFormControlTextarea1" class="form-label">夜食情報</label>
+ 			 <textarea class="form-control" id="dinnerInfo" rows="3" th:text="${responseView.dinnerInfo}"></textarea>
+		</div>
+		<button type="button" class="btn btn-primary">画像アップデート</button>
+		<p></p>
+		<button type="button" class="btn btn-outline-info" id="returnButton" th:data-trip-id="${responseView.tripId}">戻る</button>
+		<button type="button" class="btn btn-outline-success" id="nextButton">変更</button>
+    </div>
+</form>
+<!-- Button trigger modal -->
+
+
+<div class="modal" tabindex="-1" id="confirm">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">変更確認</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+      </div><!-- /.modal-header -->
+      <div class="modal-body">
+        <p>変更しますか？</p>
+      </div><!-- /.modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+        <button type="button" class="btn btn-primary" id="confirmNext">OK</button>
+      </div><!-- /.modal-footer -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal" tabindex="-1" id="completion">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">変更完了</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+      </div><!-- /.modal-header -->
+      <div class="modal-body">
+        <p>変更完了しました。</p>
+      </div><!-- /.modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="completionNext">OK</button>
+      </div><!-- /.modal-footer -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+</body>
+</html>

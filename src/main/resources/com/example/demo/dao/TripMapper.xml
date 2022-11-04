@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.TripMapper">
+    <select id="search" resultType="com.example.demo.entity.Prefectures">
+        SELECT prefectures_id AS "prefecturesId", prefectures FROM public.prefectures
+    </select>
+    <select id="searchById" resultType="com.example.demo.entity.Prefectures">
+        SELECT prefectures FROM public.prefectures WHERE prefectures_id = #{prefecturesId}
+    </select>
+</mapper>

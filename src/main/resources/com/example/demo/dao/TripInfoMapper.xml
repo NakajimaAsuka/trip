@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.TripInfoMapper">
+    <insert id="tripInfoSave" >
+		INSERT INTO 
+			public.trip_info
+		(
+			prefectures_id, 
+			accommodation_name, 
+			accommodation_info, 
+			breakfast_shop_name, 
+			breakfast_info, 
+			lunch_shop_name, 
+			lunch_info, 
+			dinner_shop_name, 
+			dinner_info,
+			trip_start_date, 
+			trip_end_date
+		)
+		VALUES(
+			#{prefecturesId}, 
+			#{accommodationName}, 
+			#{accommodationInfo}, 
+			#{breakfastShopName}, 
+			#{breakfastInfo}, 
+			#{lunchShopName}, 	
+			#{lunchInfo}, 
+			#{dinnerShopName}, 
+			#{dinnerInfo},
+			#{tripStartDate},
+			#{tripEndDate}
+			);
+    </insert>
+    <update id="tripInfoUpdate" >
+            UPDATE public.trip_info
+				SET prefectures_id=#{prefecturesId}, 
+				accommodation_name=#{accommodationName}, 
+				accommodation_info=#{accommodationInfo}, 
+				breakfast_shop_name=#{breakfastShopName}, 
+				breakfast_info=#{breakfastInfo}, 
+				lunch_shop_name=#{lunchShopName}, 
+				lunch_info=#{lunchInfo}, 
+				dinner_shop_name=#{dinnerShopName}, 
+				dinner_info=#{dinnerInfo},
+				trip_start_date=#{tripStartDate} ,
+				trip_end_date=#{tripEndDate}
+			WHERE trip_id=#{tripId};
+    </update>
+    <select id="search" resultType="com.example.demo.entity.TripInfo">
+        SELECT 
+        	prefectures_id 
+        FROM 
+        	public.trip_info 
+        WHERE
+        	delete_date_time IS NULL
+        GROUP BY 
+        	prefectures_id 
+        ORDER BY 
+        	prefectures_id ASC
+    </select>
+    <select id="searchById" resultType="com.example.demo.entity.TripInfo">
+        SELECT 
+        	trip_id,
+        	prefectures_id, 
+        	accommodation_name, 
+        	accommodation_info, 
+        	breakfast_shop_name, 
+        	breakfast_info, 
+        	lunch_shop_name, 
+        	lunch_info, 
+        	dinner_shop_name, 
+        	dinner_info,
+        	trip_start_date,
+        	trip_end_date 
+        FROM 
+        	public.trip_info 
+        WHERE 
+        	prefectures_id = #{prefecturesId} AND
+        	delete_date_time IS NULL
+    </select>
+    <select id="searchByTripId" resultType="com.example.demo.entity.TripInfo">
+        SELECT 
+        	trip_id,
+        	prefectures_id, 
+        	accommodation_name, 
+        	accommodation_info, 
+        	breakfast_shop_name, 
+        	breakfast_info, 
+        	lunch_shop_name, 
+        	lunch_info, 
+        	dinner_shop_name, 
+        	dinner_info,
+        	trip_start_date,
+        	trip_end_date
+        FROM 
+        	public.trip_info 
+        WHERE 
+        	trip_id = #{tripId} AND
+        	delete_date_time IS NULL
+    </select>
+    <update id="tripInfoDelete" >
+            UPDATE public.trip_info
+				SET delete_date_time=NOW()
+			WHERE trip_id=#{tripId};
+    </update>
+</mapper>
